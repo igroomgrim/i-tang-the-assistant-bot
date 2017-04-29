@@ -1,1 +1,1 @@
-web: ./build/debug/iTangTheAssistant --port $PORT
+web: ./build/debug/iTangTheAssistantBot --port $PORT
