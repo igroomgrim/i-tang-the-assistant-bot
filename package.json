@@ -1,0 +1,27 @@
+{
+  "name": "itang-the-assistant-bot",
+  "version": "1.0.0",
+  "description": "Personal assistant pet :P",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igroomgrim/iTangTheAssistantBot.git"
+  },
+  "keywords": [
+    "chatbot",
+    "bot",
+    "assistant",
+    "bot",
+    "pet",
+    "bot"
+  ],
+  "author": "Anak Mirasing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/igroomgrim/iTangTheAssistantBot/issues"
+  },
+  "homepage": "https://github.com/igroomgrim/iTangTheAssistantBot#readme"
+}
