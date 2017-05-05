@@ -1,0 +1,7 @@
+{
+	"FB_VERIFY_TOKEN": "TANGTANG",
+	"FB_MESSAGE_ENDPOINT": "https://graph.facebook.com/v2.6/me/messages/",
+	"FB_PROFILE_ENDPOINT": "https://graph.facebook.com/v2.6/",
+	"FB_THREAD_ENDPOINT": "https://graph.facebook.com/v2.6/me/thread_settings",
+	"PORT": 8888
+}

@@ -4,11 +4,23 @@
   "description": "Personal assistant pet :P",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "node --harmony-async-await index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/igroomgrim/iTangTheAssistantBot.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "standard": "^8.6.0"
   },
   "keywords": [
     "chatbot",
