@@ -3,11 +3,11 @@
 
 ## Installation : Feed him with . . . love :heart:
 ```
-swift build
+<3
 ```
 ## and wake him up 🤗
 ```
-.build/debug/[project-path]
+<3
 ```
 
 ## Contact his friend 🕺
