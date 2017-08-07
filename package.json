@@ -12,9 +12,12 @@
     "url": "git+https://github.com/igroomgrim/iTangTheAssistantBot.git"
   },
   "dependencies": {
+    "bitfinex-api-node": "^1.0.2",
     "body-parser": "^1.15.2",
+    "cron": "^1.2.1",
     "express": "^4.14.0",
-    "request": "^2.78.0"
+    "request": "^2.78.0",
+    "request-promise": "^4.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -30,6 +33,10 @@
     "pet",
     "bot"
   ],
+  "engines": {
+    "node": "7.6.0",
+    "npm": "4.1.2"
+  },
   "author": "Anak Mirasing",
   "license": "MIT",
   "bugs": {
