@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config')
 const app = express()
+const ItangBot = require('./itang')
 
 app.set('port', (process.env.PORT || config.PORT))
 
@@ -17,4 +18,6 @@ app.get('/', function (req, res) {
 
 app.listen(app.get('port'), () => {
   console.log(`Runn iTang runnnn <3`)
+  let itang = new ItangBot()
+  itang.observingOnOMG()
 })
