@@ -4,7 +4,7 @@ const msgenerator = require('./message_generator')
 const fbbutton = require('./fb_button')
 const HTTPService = require('./httpservice')
 const config = require('./config')
-
+const EntitiesHandler = require('./entities_handler')
 const httpservice = new HTTPService()
 
 class ItangBot {
@@ -14,7 +14,11 @@ class ItangBot {
 
   receiveMessage (senderID, message) {
     console.log('receiveMessage')
-    console.log(message)
+    console.log('text : ', message.text)
+
+    const entitiesHandler = new EntitiesHandler(message.nlp.entities)
+    let messageData = entitiesHandler.intentTranslator(message.nlp.entities)
+    this.barkBack(senderID, messageData)
   }
 
   receiveQuickReply (senderID, quickReply) {
