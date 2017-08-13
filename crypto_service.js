@@ -1,38 +1,39 @@
 'use strict'
 
 const config = require('./config')
-const msgenerator = require('./message_generator')
 const HTTPService = require('./httpservice')
-const httpservice = new HTTPService()
-const coindata = require('./coin_data_store')
-const bxservice = require('./bx_service')
+const httpService = new HTTPService()
+const coinDataStore = require('./coin_data_store')
+const bxService = require('./bx_service')
+const cmkService = require('./coinmk_service')
+const msStore = require('./message_store')
 
 module.exports = {
   async checkCoinPrice (coinCurrency, moneyCurrency = 'thb', exchangeSite = 'bx') {
   	// Note: Default exchange site is BX
   	console.log(`check ${coinCurrency} in ${moneyCurrency}`)
 
-  	// get data
-  	// process it
-  	// return message
-  	// const options = {
-  	// 	uri: config.BX_PUBLIC_API_ENDPOINT
-  	// }
-
-  	// try {
-	  //   const res = await httpservice.get(options)
-	  //   return msgenerator.genTextMessage(`1 ${coinCurrency} is 9999 ${moneyCurrency}`)
-	  // } catch (err) {
-	  //   console.error(err)
-	  //   return msgenerator.genTextMessage(`errrrrrrrorororro`)
-	  // }
 	  switch (exchangeSite) {
 	  	case 'bx':
+
+	  		if (!bxService.checkAvailableCurrency(coinCurrency)) {
+	  			if (!cmkService.checkAvailableCurrency(coinCurrency)) {
+	  				return msStore.cantFindCoinCurrency()
+	  			}
+
+	  			try {
+	  				return await cmkService.getCoinPrice(coinCurrency)
+	  			} catch (err) {
+	  				return msStore.funnyError()
+	  			}
+	  		}
+
 	  		try {
-			  	return await bxservice.getCoinPrice(coinCurrency)
+			  	return await bxService.getCoinPrice(coinCurrency)
 			  } catch (err) {
 			  	// Handle error
 			  }
+
 	  		break
 	  	case 'bitfinex':
 	  		break

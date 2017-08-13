@@ -11,8 +11,12 @@ module.exports = {
     return msgenerator.genTextMessage(`1 ${coinData.secondary_currency} is ${coinData.last_price} ${coinData.primary_currency} Woof Woooof`)
   },
 
+  checkAvailableCurrency (coinCurrency) {
+    return coinDataStore.bxPairID.hasOwnProperty(coinCurrency)
+  },
+
   async getCoinPrice (coinCurrency) {
-    if (!coinDataStore.bxPairID.hasOwnProperty(coinCurrency)) {
+    if (!this.checkAvailableCurrency(coinCurrency)) {
       return msgenerator.genTextMessage(`Not found ${coinCurrency} in BXXXXX WOOF WOOF`)
     }
 
