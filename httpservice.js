@@ -3,34 +3,32 @@
 const rqpm = require('request-promise')
 
 class HTTPService {
-  async post (uri, qs, body) {
-    const options = {
-      method: 'POST',
-      uri: uri,
-      qs: qs,
-      body: body,
-      json: true
-    }
+  async post (options) {
+  	var defaultOption = {
+  		method: 'POST',
+  		json: true
+  	}
+
+  	var opts = Object.assign(defaultOption, options)
 
     try {
-      const response = await rqpm(options)
+      const response = await rqpm(opts)
       return response
     } catch (error) {
       throw error
     }
   }
 
-  async get (uri, qs, body) {
-    const options = {
+  async get (options) {
+    var defaultOption = {
       method: 'GET',
-      uri: uri,
-      qs: qs,
-      body: body,
       json: true
     }
 
+    var opts = Object.assign(defaultOption, options)
+
     try {
-      const response = await rqpm(options)
+      const response = await rqpm(opts)
       return response
     } catch (error) {
       throw error

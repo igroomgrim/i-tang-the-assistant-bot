@@ -5,36 +5,36 @@ const msgenerator = require('./message_generator')
 
 class EntitiesHandler {
   constructor (entities) {
-  	this.entities = entities
+    this.entities = entities
 
-  	this.hasIntent 				= entities.hasOwnProperty('intent')
-    this.hasCoinCurrency 	= entities.hasOwnProperty('coin_currency')
-    this.hasCoinAmount 		= entities.hasOwnProperty('coin_amount')
-    this.hashCoinPrice		= entities.hasOwnProperty('coin_price')
-    this.hasExchageSite		= entities.hasOwnProperty('exchange_site')
-    this.hasBetType				= entities.hasOwnProperty('bet_type')
-    this.hasItemToBuy			=	entities.hasOwnProperty('item_to_buy')
-    this.hasTradeType			= entities.hasOwnProperty('trade_type')
-    this.hasMoneyCurrency =	entities.hasOwnProperty('money_currency')
-    this.hasGreetings			= entities.hasOwnProperty('greetings')
-    this.hasDateTime			= entities.hasOwnProperty('datetime')
-    this.hasDuration			= entities.hasOwnProperty('duration')
-    this.hasThanks 				= entities.hasOwnProperty('thanks')
-    this.hasContact				=	entities.hasOwnProperty('contact')
-    this.hasReminder			=	entities.hasOwnProperty('reminder')
+    this.hasIntent = entities.hasOwnProperty('intent')
+    this.hasCoinCurrency = entities.hasOwnProperty('coin_currency')
+    this.hasCoinAmount = entities.hasOwnProperty('coin_amount')
+    this.hashCoinPrice = entities.hasOwnProperty('coin_price')
+    this.hasExchageSite = entities.hasOwnProperty('exchange_site')
+    this.hasBetType = entities.hasOwnProperty('bet_type')
+    this.hasItemToBuy = entities.hasOwnProperty('item_to_buy')
+    this.hasTradeType = entities.hasOwnProperty('trade_type')
+    this.hasMoneyCurrency = entities.hasOwnProperty('money_currency')
+    this.hasGreetings = entities.hasOwnProperty('greetings')
+    this.hasDateTime = entities.hasOwnProperty('datetime')
+    this.hasDuration = entities.hasOwnProperty('duration')
+    this.hasThanks = entities.hasOwnProperty('thanks')
+    this.hasContact = entities.hasOwnProperty('contact')
+    this.hasReminder = entities.hasOwnProperty('reminder')
   }
 
   checkUnderRateConfidence (intent) {
-  	return intent.confidence > 0.7
+    return intent.confidence > 0.7
   }
 
   checkMaxConfidence (acc, cur) {
-  	return Math.max(acc.confidence, cur.confidence)
+    return Math.max(acc.confidence, cur.confidence)
   }
 
-  intentTranslator (entities) {
-  	console.log(entities)
-  	console.log('------------------')
+  async intentTranslator (entities) {
+    console.log(entities)
+    console.log('------------------')
 
     // var removeUnderRateConfidence = (it) => { return it.confidence > 0.7 }
     // var findMaxConfidence = (acc, cur) => Math.max(acc.confidence, cur.confidence)
@@ -43,35 +43,36 @@ class EntitiesHandler {
     console.log(Object.keys(entities))
 
     var clearEntities = Object.keys(entities).map(function (intent, index) {
-    	return entities[intent].filter(removeUnderRateConfidence)
+      return entities[intent].filter(removeUnderRateConfidence)
     })
 
     console.log(clearEntities)
-  	console.log('------------------')
+    console.log('------------------')
     if (entities.hasOwnProperty(this.intent)) {
-    	console.log(entities[this.intent])
-    	var intent = entities[this.intent].reduce(findMaxConfidence)
+      console.log(entities[this.intent])
+      var intent = entities[this.intent].reduce(findMaxConfidence)
     }
-		*/
+    */
 
-		// First thing to check
+    // First thing to check
 
     if (!this.hasIntent) {
-    	this.entitiesChecking(entities)
-    	return
+      this.entitiesChecking(entities)
+      return
     }
 
     var intent = entities['intent'].reduce(this.checkMaxConfidence).value
     switch (intent) {
-    	case 'coin_price':
-    		return this.handleCoinPriceIntent(entities)
-    		break
-    	case 'coin_balance':
-    		break
-    	case 'coin_trade':
-    		break
-    	case 'coin_reminder':
-    		break
+      case 'coin_price':
+        const res = await this.handleCoinPriceIntent(entities)
+        return res
+        break
+      case 'coin_balance':
+        break
+      case 'coin_trade':
+        break
+      case 'coin_reminder':
+        break
     }
   }
 
@@ -79,21 +80,31 @@ class EntitiesHandler {
 
   }
 
-  handleCoinPriceIntent (entities) {
-  	console.log('handleCoinPriceIntent')
-  	if (!this.hasCoinCurrency) {
-  		return msgenerator.genTextMessage(`I don't know what is coin name that you want to get lahhh woof woof`)
-  	}
+  async handleCoinPriceIntent (entities) {
+    console.log('handleCoinPriceIntent')
+    if (!this.hasCoinCurrency) {
+      return msgenerator.genTextMessage(`I don't know what is coin name that you want to get lahhh woof woof`)
+    }
 
-  	let coinCurrency = entities['coin_currency'].reduce(this.checkMaxConfidence).value
+    let coinCurrency = entities['coin_currency'].reduce(this.checkMaxConfidence).value
 
-  	if (!this.hasMoneyCurrency) {
-  		return service.checkCoinPrice(coinCurrency)
-  	}
+    try {
+      const res = await service.checkCoinPrice(coinCurrency)
+      return res
+      console.log('res handleCoinPriceIntent')
+    } catch (err) {
 
-  	let moneyCurrency = entities['money_currency'].reduce(this.checkMaxConfidence).value
+    }
 
-  	return service.checkCoinPrice(coinCurrency, moneyCurrency)
+    /*
+    if (!this.hasMoneyCurrency) {
+      return service.checkCoinPrice(coinCurrency)
+    }
+
+    let moneyCurrency = entities['money_currency'].reduce(this.checkMaxConfidence).value
+
+    return service.checkCoinPrice(coinCurrency, moneyCurrency)
+    */
   }
 
   handleCoinBalanceIntent (entities) {

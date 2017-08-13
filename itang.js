@@ -12,13 +12,18 @@ class ItangBot {
     this.accessToken = process.env.FB_ACCESS_TOKEN
   }
 
-  receiveMessage (senderID, message) {
+  async receiveMessage (senderID, message) {
     console.log('receiveMessage')
     console.log('text : ', message.text)
 
     const entitiesHandler = new EntitiesHandler(message.nlp.entities)
-    let messageData = entitiesHandler.intentTranslator(message.nlp.entities)
-    this.barkBack(senderID, messageData)
+
+    try {
+      const messageData = await entitiesHandler.intentTranslator(message.nlp.entities)
+      const res = await this.barkBack(senderID, messageData)
+    } catch (err) {
+      // handle error
+    }
   }
 
   receiveQuickReply (senderID, quickReply) {
@@ -29,7 +34,7 @@ class ItangBot {
     console.log('receivePostback')
   }
 
-  barkBack (senderID, messageData) {
+  async barkBack (senderID, messageData) {
     let uri = config.FB_MESSAGE_ENDPOINT
     let qs = {
       access_token: this.accessToken
@@ -39,13 +44,17 @@ class ItangBot {
       message: messageData
     }
 
-    httpservice.post(uri, qs, body)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    let options = {
+      uri: uri,
+      qs: qs,
+      body: body
+    }
+
+    try {
+      const res = await httpservice.post(options)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
