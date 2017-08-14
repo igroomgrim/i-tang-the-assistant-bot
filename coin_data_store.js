@@ -20,6 +20,9 @@ module.exports = Object.freeze({
     'neo': 'neo',
     'cvc': 'civic',
     'smart': 'smartcash',
-    'sigt': 'signatum'
+    'sigt': 'signatum',
+
+    'pay': 'tenx',
+    'tenx': 'tenx'
   }
 })
