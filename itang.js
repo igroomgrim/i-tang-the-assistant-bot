@@ -1,6 +1,5 @@
 'use strict'
 
-const msgenerator = require('./message_generator')
 const fbbutton = require('./fb_button')
 const HTTPService = require('./httpservice')
 const config = require('./config')
@@ -23,6 +22,7 @@ class ItangBot {
       const res = await this.barkBack(senderID, messageData)
     } catch (err) {
       // handle error
+      console.log(err)
     }
   }
 

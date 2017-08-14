@@ -4,6 +4,6 @@
 	"FB_MESSAGE_ENDPOINT": "https://graph.facebook.com/v2.6/me/messages",
 	"FB_THREAD_ENDPOINT": "https://graph.facebook.com/v2.6/me/thread_settings",
 	"BX_PUBLIC_API_ENDPOINT": "https://bx.in.th/api/",
-	"COINMARKETCAP_API_ENDPOINT": "https://api.coinmarketcap.com/v1/ticker",
+	"COINMARKETCAP_API_ENDPOINT": "https://api.coinmarketcap.com/v1/ticker/",
 	"PORT": 8888
 }

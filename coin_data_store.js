@@ -1,7 +1,10 @@
 'use strict'
 
 module.exports = Object.freeze({
-  usdthb: 33.27,
+  moneyCurrency: {
+  	'thb': 1,
+  	'usd': 33.27
+  },
   exchangeSite: {
   	'bx': 'bx',
   	'bitfinex': 'bitfinex'

@@ -22,7 +22,7 @@ module.exports = {
 	  			}
 
 	  			try {
-	  				return await cmkService.getCoinPrice(coinCurrency)
+	  				return await cmkService.getCoinPrice(coinCurrency, moneyCurrency)
 	  			} catch (err) {
 	  				return msStore.funnyError()
 	  			}
@@ -32,6 +32,7 @@ module.exports = {
 			  	return await bxService.getCoinPrice(coinCurrency)
 			  } catch (err) {
 			  	// Handle error
+			  	return msStore.funnyError()
 			  }
 
 	  		break

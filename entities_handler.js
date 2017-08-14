@@ -2,6 +2,7 @@
 
 const service = require('./crypto_service')
 const msgenerator = require('./message_generator')
+const msgStore = require('./message_store')
 
 class EntitiesHandler {
   constructor (entities) {
@@ -68,10 +69,16 @@ class EntitiesHandler {
         return res
         break
       case 'coin_balance':
+        return msgStore.funnyError()
         break
       case 'coin_trade':
+        return msgStore.funnyError()
         break
       case 'coin_reminder':
+        return msgStore.funnyError()
+        break
+      default:
+        return msgStore.funnyError()
         break
     }
   }
@@ -89,22 +96,17 @@ class EntitiesHandler {
     let coinCurrency = entities['coin_currency'].reduce(this.checkMaxConfidence).value
 
     try {
+      if (entities['money_currency']) {
+        let moneyCurrency = entities['money_currency'].reduce(this.checkMaxConfidence).value
+        const res = await service.checkCoinPrice(coinCurrency, moneyCurrency)
+        return res
+      }
+      console.log('no money currency')
       const res = await service.checkCoinPrice(coinCurrency)
       return res
-      console.log('res handleCoinPriceIntent')
     } catch (err) {
-
+      return msgStore.funnyError()
     }
-
-    /*
-    if (!this.hasMoneyCurrency) {
-      return service.checkCoinPrice(coinCurrency)
-    }
-
-    let moneyCurrency = entities['money_currency'].reduce(this.checkMaxConfidence).value
-
-    return service.checkCoinPrice(coinCurrency, moneyCurrency)
-    */
   }
 
   handleCoinBalanceIntent (entities) {
