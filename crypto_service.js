@@ -41,6 +41,10 @@ module.exports = {
 	  	default:
 	  		break
 	  }
+  },
+
+  async remindCoinPrice (coinCurrency, exchangeSite = 'bx') {
+
   }
 
 }

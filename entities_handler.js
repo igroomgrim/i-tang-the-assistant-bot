@@ -1,7 +1,6 @@
 'use strict'
 
 const service = require('./crypto_service')
-const msgenerator = require('./message_generator')
 const msgStore = require('./message_store')
 
 class EntitiesHandler {
@@ -65,8 +64,7 @@ class EntitiesHandler {
     var intent = entities['intent'].reduce(this.checkMaxConfidence).value
     switch (intent) {
       case 'coin_price':
-        const res = await this.handleCoinPriceIntent(entities)
-        return res
+        return await this.handleCoinPriceIntent(entities)
         break
       case 'coin_balance':
         return msgStore.funnyError()
@@ -75,7 +73,7 @@ class EntitiesHandler {
         return msgStore.funnyError()
         break
       case 'coin_reminder':
-        return msgStore.funnyError()
+        return await this.handleCoinReminderIntent(entities)
         break
       default:
         return msgStore.funnyError()
@@ -90,7 +88,7 @@ class EntitiesHandler {
   async handleCoinPriceIntent (entities) {
     console.log('handleCoinPriceIntent')
     if (!this.hasCoinCurrency) {
-      return msgenerator.genTextMessage(`I don't know what is coin name that you want to get lahhh woof woof`)
+      return msgStore.cantFindCoinCurrency()
     }
 
     let coinCurrency = entities['coin_currency'].reduce(this.checkMaxConfidence).value
@@ -117,8 +115,9 @@ class EntitiesHandler {
 
   }
 
-  handleCoinReminderIntent (entities) {
-
+  async handleCoinReminderIntent (entities) {
+    console.log('handleCoinReminderIntent')
+    return msgStore.funnyError()
   }
 
   handleUnknowIntent (entities) {
