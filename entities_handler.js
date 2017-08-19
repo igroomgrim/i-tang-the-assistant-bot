@@ -57,32 +57,31 @@ class EntitiesHandler {
     // First thing to check
 
     if (!this.hasIntent) {
-      this.entitiesChecking(entities)
-      return
+      return this.handleUnknowIntent(entities)
     }
 
     var intent = entities['intent'].reduce(this.checkMaxConfidence).value
     switch (intent) {
       case 'coin_price':
+        console.log('intent : coin_price')
         return await this.handleCoinPriceIntent(entities)
         break
       case 'coin_balance':
+        console.log('intent : coin_balance')
         return msgStore.funnyError()
         break
       case 'coin_trade':
+        console.log('intent : coin_trade')
         return msgStore.funnyError()
         break
       case 'coin_reminder':
+        console.log('intent : coin_reminder')
         return await this.handleCoinReminderIntent(entities)
         break
       default:
         return msgStore.funnyError()
         break
     }
-  }
-
-  entitiesChecking (entities) {
-
   }
 
   async handleCoinPriceIntent (entities) {
@@ -107,12 +106,14 @@ class EntitiesHandler {
     }
   }
 
-  handleCoinBalanceIntent (entities) {
-
+  async handleCoinBalanceIntent (entities) {
+    console.log('handleCoinBalanceIntent')
+    return msgStore.funnyError()
   }
 
-  handleCoinTradeIntent (entities) {
-
+  async handleCoinTradeIntent (entities) {
+    console.log('handleCoinTradeIntent')
+    return msgStore.funnyError()
   }
 
   async handleCoinReminderIntent (entities) {
@@ -120,8 +121,9 @@ class EntitiesHandler {
     return msgStore.funnyError()
   }
 
-  handleUnknowIntent (entities) {
-
+  async handleUnknowIntent (entities) {
+    console.log('handleUnknowIntent')
+    return msgStore.funnyError()
   }
 
 }
